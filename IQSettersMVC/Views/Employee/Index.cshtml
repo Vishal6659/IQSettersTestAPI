@@ -1,0 +1,57 @@
+﻿@using Newtonsoft.Json
+@model List<IQSettersTestAPI.Model.Employee>
+
+@{
+    ViewBag.Title = "Employees";
+    var orgList = ViewBag.Orgs as SelectList;
+}
+
+<h2>Employee List</h2>
+
+<table class="table table-bordered">
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Organization</th>
+        <th>Action</th>
+    </tr>
+    @foreach (var emp in Model)
+    {
+        <tr>
+            <td>@emp.EmpName</td>
+            <td>@emp.Email</td>
+            <td>@emp.OrgId</td>
+            <td>
+                <a href="@Url.Action("Details", "Employee", new { id = emp.EmpId })" class="btn btn-info btn-sm">View</a>
+                <a href="#" class="btn btn-primary btn-sm editEmployee" data-emp='@Html.Raw(JsonConvert.SerializeObject(Model))'>Edit</a>
+            </td>
+        </tr>
+    }
+</table>
+
+<button id="addEmployeeBtn" class="btn btn-success">Add Employee</button>
+
+<div id="employeeFormContainer" style="display:none; margin-top:20px;">
+    @Html.Partial("_EmployeeForm", new IQSettersTestAPI.Model.Employee())
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#addEmployeeBtn').click(function () {
+                $('#employeeFormContainer input').val('');
+                $('#employeeFormContainer select').val('');
+                $('#employeeFormContainer').show();
+            });
+
+            $('.editEmployee').click(function () {
+                var emp = $(this).data('emp');
+                $('#EmpId').val(emp.EmpId);
+                $('#EmpName').val(emp.EmpName);
+                $('#Email').val(emp.Email);
+                $('#OrgId').val(emp.OrgId);
+                $('#employeeFormContainer').show();
+            });
+        });
+    </script>
+}

@@ -1,0 +1,23 @@
+﻿@using IQSettersTestAPI.Model
+@Html.Partial("~/Views/Shared/_OrgForm.cshtml", new IQSettersTestAPI.Model.OrganizationModel())
+@model OrganizationModel
+<div id="orgModal" style="display:none">
+    @using (Html.BeginForm("Save", "Organization", FormMethod.Post))
+    {
+        @Html.HiddenFor(m => m.OrgId)
+        @Html.TextBoxFor(m => m.OrgName)
+        @Html.TextBoxFor(m => m.OrgAddress)
+        <button type="submit">Save</button>
+    }
+</div>
+<script>
+    $('.editOrg').click(function(){
+      var o = $(this).data('org');
+      $('#OrgId').val(o.OrgId); $('#OrgName').val(o.OrgName); $('#OrgAddress').val(o.OrgAddress);
+      $('#orgModal').show();
+    });
+    $('#addOrg').click(function(){
+      $('#orgModal').find('input').val(''); $('#orgModal').show();
+    });
+</script>
+

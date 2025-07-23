@@ -1,0 +1,6 @@
+@IQSettersTestAPI_HostAddress = http://localhost:5047
+
+GET {{IQSettersTestAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

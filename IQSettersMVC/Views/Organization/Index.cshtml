@@ -1,0 +1,18 @@
+﻿@using IQSettersTestAPI.Model
+@using Newtonsoft.Json
+@model List<OrganizationModel>
+<table>
+    @foreach (var o in Model)
+    {
+        <tr>
+            <td>@o.OrgName</td>
+            <td>@o.OrgAddress</td>
+            <td>
+                <a href="#" data-org='@Html.Raw(JsonConvert.SerializeObject(o))' class="editOrg">Edit</a>
+            </td>
+        </tr>
+
+    }
+</table>
+<button id="addOrg">Add Org</button>
+@Html.Partial("_OrgForm", new OrganizationModel())

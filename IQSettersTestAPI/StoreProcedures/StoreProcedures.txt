@@ -1,0 +1,26 @@
+-- Add or Update Organization
+CREATE PROCEDURE sp_AddUpdateOrganization
+    @OrgId INT = NULL,
+    @OrgName VARCHAR(100),
+    @OrgAddress VARCHAR(255)
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM Organization WHERE OrgId = @OrgId)
+        UPDATE Organization SET OrgName = @OrgName, OrgAddress = @OrgAddress WHERE OrgId = @OrgId;
+    ELSE
+        INSERT INTO Organization (OrgName, OrgAddress) VALUES (@OrgName, @OrgAddress);
+END;
+
+-- Add or Update Employee
+CREATE PROCEDURE sp_AddUpdateEmployee
+    @EmpId INT = NULL,
+    @EmpName VARCHAR(100),
+    @Email VARCHAR(100),
+    @OrgId INT
+AS
+BEGIN
+    IF EXISTS (SELECT 1 FROM Employee WHERE EmpId = @EmpId)
+        UPDATE Employee SET EmpName = @EmpName, Email = @Email, OrgId = @OrgId WHERE EmpId = @EmpId;
+    ELSE
+        INSERT INTO Employee (EmpName, Email, OrgId) VALUES (@EmpName, @Email, @OrgId);
+END;

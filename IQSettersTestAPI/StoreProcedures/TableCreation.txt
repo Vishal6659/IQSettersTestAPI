@@ -1,0 +1,16 @@
+-- Organization Table
+CREATE TABLE Organization (
+    OrgId INT PRIMARY KEY IDENTITY(1,1),
+    OrgName VARCHAR(100) NOT NULL,
+    OrgAddress VARCHAR(255),
+    CreatedDate DATETIME DEFAULT GETDATE()
+);
+
+-- Employee Table
+CREATE TABLE Employee (
+    EmpId INT PRIMARY KEY IDENTITY(1,1),
+    EmpName VARCHAR(100) NOT NULL,
+    Email VARCHAR(100),
+    OrgId INT FOREIGN KEY REFERENCES Organization(OrgId),
+    CreatedDate DATETIME DEFAULT GETDATE()
+);
